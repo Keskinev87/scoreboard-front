@@ -1,3 +1,10 @@
+@media screen and (max-width: 600px) {
+	body{
+		font-size: 0.8vw;
+	}
+  }
+  
+
 .loader {
 	position: absolute;
 	width: 10%;
@@ -20,6 +27,29 @@
 	100% { transform: rotate(360deg); }
 }
 
+.panel-heading {
+	cursor: pointer;
+}
+
+#collapse1 {
+	position: absolute;
+	background: #ffffff;
+	z-index: 2;
+	border: 1px solid #dddddd;
+	width: 80%;
+	left: 10%;
+}
+
+.table {
+	border: 1px solid #dddddd;
+	box-sizing: border-box;
+}
+
+#err-msg {
+	color: red;
+	font-weight: bold;
+}
+
 /* form {
 	display: block;
 	margin-bottom: 20px;
@@ -37,7 +67,7 @@
 	margin-right: 30px;
 } */
 
-table {
+/* table {
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
 	width: 100%;
@@ -51,4 +81,4 @@ td, th {
   
 tr:nth-child(even) {
 	background-color: #dddddd;
-}
+} */

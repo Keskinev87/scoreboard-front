@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Page Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="styles/styles.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -9,29 +10,73 @@
 </head>
 <body>
 
+<!-- Colapsible panel - container for the filters form-->
 <div class="loader" id="loader"></div>
+<h1 class="text-center">Scoreboard</h1>
+
+<!-- Modal - container for the add new player form -->
+<button type="button" class="btn btn-basic btn-md" data-toggle="modal" data-target="#addPlayerModal">Add New Player</button>
+
+<!-- Modal container -->
+<div id="addPlayerModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add New Player</h4>
+      </div>
+      <div class="modal-body">
+        <form id="add-form">
+            <div class="form-group" id='add-name-group'>
+                <label for="playersName">Name</label>
+                <input class="form-control input-sm" type="text" name="playersName" id="playersName" onblur="addForm.validateInput('name')">
+                <small style="visibility: hidden" id="err-msg"></small>
+            </div>
+            <div class="form-group" id='add-country-group'>
+                <label for="playersCountry">Country</label>
+                <select class="form-control" id="playersCountry" onblur="addForm.validateInput('country')">
+                    <option></option>
+                </select>
+            </div>
+            <div class="form-group" id='add-score-group'>
+                <label for="playersScore">Score</label>
+                <input class="form-control input-sm" type="number" name="playersScore" id="playersScore" onblur="addForm.validateInput('score')">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" onClick="addForm.prepareForm(event)">Submit</button>
+        <button type="button" id="add-form-close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 <div class="container">
-    <div class="panel-group">
+    <div class="panel-group col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading text-center" data-toggle="collapse" href="#collapse1">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1">Filters</a>
+                    <a>Filters</a>
                 </h4>
             </div>
-            <div id="collapse1" class="panel-collapse collapse" style="position:absolute; background:#ffffff;">
+            <div id="collapse1" class="panel-collapse collapse">
                 <div class="panel-body">
                     <form id="filter-form">
-                    <div class="row col-lg-10 col-md-12 col-sm-10 col-xs-12 col-lg-offset-1 col-sm-offset-1">
+                    <div class="row col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                         <h2>Filter options</h2>
                         <div class="form-group">
-                            <label for="playersName">Name</label>
-                            <input class="form-control" type="text" name="playersName" id="playersName">
+                            <label for="filterName">Name</label>
+                            <input class="form-control input-sm" type="text" name="filterName" id="filterName">
                         </div>
                         <div class="form-group">
-                            <label for="playersName">Countries</label>
+                            <label for="countries">Countries</label>
                             <div class="dropdown">
-                                <input class="dropdown-toggle form-control" type="text" data-toggle="dropdown">
+                                <input class="dropdown-toggle form-control input-sm" type="text" name="countries" data-toggle="dropdown">
                                 <ul class="dropdown-menu" id="countries">
                                     
                                 </ul>
@@ -39,18 +84,18 @@
                         </div>
                         <div class="form-group">
                             <label for="regDateFrom">Date from</label>
-                            <input class="form-control" type="date" name="regDateFrom" id="regDateFrom">
+                            <input class="form-control input-sm" type="date" name="regDateFrom" id="regDateFrom">
                         </div>
                         <div class="form-group">
                             <label for="regDateTo">Date to</label>
-                            <input class="form-control" type="date" name="regDateTo" id="regDateTo">
+                            <input class="form-control input-sm" type="date" name="regDateTo" id="regDateTo">
                         </div>
                     </div>
-                    <div class="row col-lg-10 col-md-12 col-sm-10 col-xs-12 col-lg-offset-1 col-sm-offset-1">
+                    <div class="row col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
                         <h2>Sort options</h2>
                         <div class="form-group">
                             <label for="scoreSort">Sort by:</label>
-                            <select class="form-control" name="sortCriteria" id="sortCriteria">
+                            <select class="form-control input-sm" name="sortCriteria" id="sortCriteria">
                                 <option value=""></option>
                                 <option value="name">Name</option>
                                 <option value="country">Country</option>
@@ -63,7 +108,7 @@
                             <label class="radio-inline"><input type="radio" name="sortType" value="ascending" checked>Ascending</label>
                             <label class="radio-inline"><input type="radio" name="sortType" value="descending">Descending</label>
                         </div>
-                        <button type="submit" class="btn btn-default" onClick="submitForm(event)">Submit</button>
+                        <button type="submit" class="btn btn-default" onClick="filterForm.submitForm(event)">Submit</button>
                     </div>
                 </form>
                 </div>
@@ -73,6 +118,28 @@
     
 </div>
 
+<div class="container col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Date</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="scoreboard">
+    
+        </tbody>
+    </table>
+</div>
+
+
 </body>
-<script src="scripts/scoreboard.js"></script>
+<script src="scripts/scoreBoard.js"></script>
+<script src="scripts/filterForm.js"></script>
+<script src="scripts/addForm.js"></script>
+<script src="scripts/validator.js"></script>
+<script src="scripts/main.js"></script>
+<script>window.onload = main;</script>
 </html>
