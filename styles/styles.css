@@ -45,7 +45,7 @@
 	box-sizing: border-box;
 }
 
-#err-msg {
+.err-msg {
 	color: red;
 	font-weight: bold;
 }

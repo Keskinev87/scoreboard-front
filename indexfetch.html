@@ -10,12 +10,14 @@
 </head>
 <body>
 
-<!-- Colapsible panel - container for the filters form-->
-<div class="loader" id="loader"></div>
+
+<div class="loader" id="loader" style="display:none;"></div>
 <h1 class="text-center">Scoreboard</h1>
 
-<!-- Modal - container for the add new player form -->
-<button type="button" class="btn btn-basic btn-md" data-toggle="modal" data-target="#addPlayerModal">Add New Player</button>
+<div class="row text-center">
+    <button type="button" class="btn btn-basic btn-md" data-toggle="modal" data-target="#addPlayerModal">Add New Player</button>
+</div>
+<br>
 
 <!-- Modal container -->
 <div id="addPlayerModal" class="modal fade" role="dialog">
@@ -32,7 +34,7 @@
             <div class="form-group" id='add-name-group'>
                 <label for="playersName">Name</label>
                 <input class="form-control input-sm" type="text" name="playersName" id="playersName" onblur="addForm.validateInput('name')">
-                <small style="visibility: hidden" id="err-msg"></small>
+                <small style="visibility: hidden" class="err-msg text-center" id="err-msg"></small>
             </div>
             <div class="form-group" id='add-country-group'>
                 <label for="playersCountry">Country</label>
@@ -68,12 +70,16 @@
                 <div class="panel-body">
                     <form id="filter-form">
                     <div class="row col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-                        <h2>Filter options</h2>
-                        <div class="form-group">
+                        <div class="row text-center">
+                            <button class="btn btn-default pull-right" data-toggle="collapse" href="#collapse1" id="filter-close-btn">X</button>
+                            <h2>Filter options</h2>                            
+                        </div>
+                        <div class="form-group" id='filter-name-group'>
                             <label for="filterName">Name</label>
                             <input class="form-control input-sm" type="text" name="filterName" id="filterName">
+                            <small style="visibility: hidden" class="err-msg text-center" id="filter-err-msg"></small>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id='filter-country-group'>
                             <label for="countries">Countries</label>
                             <div class="dropdown">
                                 <input class="dropdown-toggle form-control input-sm" type="text" name="countries" data-toggle="dropdown">
@@ -82,11 +88,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id='filter-date-from-group'>
                             <label for="regDateFrom">Date from</label>
                             <input class="form-control input-sm" type="date" name="regDateFrom" id="regDateFrom">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id='filter-date-to-group'>
                             <label for="regDateTo">Date to</label>
                             <input class="form-control input-sm" type="date" name="regDateTo" id="regDateTo">
                         </div>
@@ -108,7 +114,12 @@
                             <label class="radio-inline"><input type="radio" name="sortType" value="ascending" checked>Ascending</label>
                             <label class="radio-inline"><input type="radio" name="sortType" value="descending">Descending</label>
                         </div>
-                        <button type="submit" class="btn btn-default" onClick="filterForm.submitForm(event)">Submit</button>
+                        <div class="row text-center">
+                            <button type="submit" class="btn btn-default" onClick="filterForm.validateForm(event)">Submit</button>
+                            <button type="submit" class="btn btn-default" data-toggle="collapse" href="#collapse1">Cancel</button>
+                            <button type="submit" class="btn btn-default" onClick="filterForm.resetForm(event)">Reset</button>
+                        </div>
+                        
                     </div>
                 </form>
                 </div>
@@ -119,9 +130,11 @@
 </div>
 
 <div class="container col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <p class="err-msg text-center" id="scoreboard-error" style="display:none"></p>
     <table class="table table-condensed">
         <thead>
           <tr>
+            <th>Rank</th>
             <th>Name</th>
             <th>Country</th>
             <th>Date</th>
@@ -136,6 +149,7 @@
 
 
 </body>
+<script src="scripts/countries.js"></script>
 <script src="scripts/scoreBoard.js"></script>
 <script src="scripts/filterForm.js"></script>
 <script src="scripts/addForm.js"></script>
