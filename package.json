@@ -4,7 +4,7 @@
   "description": "Assignment ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Keskinev87/scoreboard-front/issues"
   },
-  "homepage": "https://github.com/Keskinev87/scoreboard-front#readme"
+  "homepage": "https://github.com/Keskinev87/scoreboard-front#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
