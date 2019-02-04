@@ -48,7 +48,15 @@ input[type="checkbox"]{
 	width: 15px; /*Desired width*/
 	height: 15px; /*Desired height*/
 	cursor: pointer;
-  }
+}
+
+.pagination > li {
+	cursor: pointer;
+}
+
+#applied-filters > span {
+	font-weight: bold;
+}
 
 .table {
 	border: 1px solid #dddddd;

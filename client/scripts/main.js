@@ -3,8 +3,8 @@ var filterForm;
 var addForm;
 var addNewForm;
 var validator;
-const BACKEND_URL = 'https://scoreboard-server-yavor.herokuapp.com'
-// const BACKEND_URL = 'http://localhost:3000'
+// const BACKEND_URL = 'https://scoreboard-server-yavor.herokuapp.com'
+const BACKEND_URL = 'http://localhost:3000'
 
 function main(){
     scoreBoard = new ScoreBoard();
@@ -13,7 +13,7 @@ function main(){
     validator = new Validator();
     console.log(validator)
     console.log(filterForm)
-    scoreBoard.loadPlayers();
+    scoreBoard.loadPlayers({});
     filterForm.populateCountries();
     addForm.populateCountries();
     
@@ -28,6 +28,12 @@ function main(){
                 filterForm.removeFilterCountries(event.target.value);
                 event.target.classList.remove('selected');
             }
+                
+        })
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('page-selector')){
+                scoreBoard.changePage(Number(event.target.innerHTML) - 1,event.target.id);
+            } 
                 
         })
     }

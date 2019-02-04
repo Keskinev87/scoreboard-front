@@ -5,19 +5,22 @@ class ScoreBoard {
         this.loader = document.getElementById("loader");
         this.scoreBoard = document.getElementById('scoreboard');
         this.errorMsg = document.getElementById('scoreboard-error');
+        this.paginator = document.getElementById('paginator');
+        this.paginator.style.visibility = '';
+        this.currentPageId = 'page0';
+        this.currentPage = 0;
     }
 
-    async loadPlayers (filterName, filterCountries, filterDateFrom, filterDateTo, sortCriteria, sortType) {
-        this.scoreBoard.innerHTML='';
-        console.log(filterName, filterCountries, filterDateFrom)
+    async loadPlayers (filters) {
+        console.log(filters)
         let url = new URL(BACKEND_URL + '/players');
         let params= {
-            filterName: filterName || '',
-            filterCountries: filterCountries || [],
-            filterDateFrom: filterDateFrom || '',
-            filterDateTo: filterDateTo || '',
-            sortCriteria: sortCriteria || '',
-            sortType: sortType || ''
+            filterName: filters.filterName || '',
+            filterCountries: filters.selectedFilterCountries || [],
+            filterDateFrom: filters.filterDateFrom || '',
+            filterDateTo: filters.filterDateTo || '',
+            sortCriteria: filters.sortCriteria || '',
+            sortType: filters.sortType || ''
         };
         let queryOptions = {
             method: "POST",
@@ -46,18 +49,48 @@ class ScoreBoard {
 
         if(data){
             this.players=data;
+            console.log(this.players.length)
             this.loader.style.display = 'none';
             this.errorMsg.style.display = 'none';
-            this.createTable(this.players);
+            this.paginator.innerHTML = '';
+            this.createPages(this.players.length);
         }
         
     }
+
+    createPages(length) {
+        let pages = Math.ceil(length / 100);
+        for(let i = 0; i < pages; i++) {
+            let page = document.createElement('li');
+            let pageAnchor = document.createElement('a');
+            pageAnchor.classList.add('page-selector');
+            pageAnchor.setAttribute('id', 'page' + i);
+            pageAnchor.innerHTML = i + 1;
+            page.appendChild(pageAnchor);
+            this.paginator.appendChild(page);
+        } 
+        this.changePage(this.currentPage, this.currentPageId);
+        console.log(this.currentPage) ;
+    }
+
+    changePage(pageNumber, pageId) {
+        let curPage = document.getElementById(this.currentPageId);
+        curPage.parentElement.classList.remove('active');
+        let page = document.getElementById(pageId);
+        page.parentElement.classList.add('active');
+        this.currentPage = pageNumber;
+        this.currentPageId = pageId;
+        console.log("splicing", this.currentPage, this.currentPage + 99);
+        this.createTable(this.players.slice(this.currentPage * 100, this.currentPage * 100 + 99));
+    }
     
     createTable(arr) {
+        //check how many pages are needed
+        this.scoreBoard.innerHTML='';
         arr.forEach((element, index) => {
             let tr = document.createElement('tr');
             let tdRank = document.createElement('td');
-            tdRank.innerText = index + 1;
+            tdRank.innerText = this.currentPage * 100 + index + 1;
             let tdName = document.createElement('td');
             tdName.innerText = element.name;
             let tdCountry = document.createElement('td');

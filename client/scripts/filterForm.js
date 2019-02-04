@@ -9,6 +9,7 @@ class FilterForm {
         this.errorMsg = document.getElementById('filter-err-msg');
         this.closeBtn = document.getElementById('filter-close-btn');
         this.filteredCountriesContainer = document.getElementById('selected-filter-countries');
+        this.appliedFilters = document.getElementById('applied-filters');
     }
 
     validateForm(e) {
@@ -43,8 +44,37 @@ class FilterForm {
 
         this.removeError();
         //LOAD THE PLAYERS AGAIN USING THE FILTERS
-        scoreBoard.loadPlayers(filterName, this.selectedFilterCountries, regDateFrom, regDateTo, sortCriteria, sortType);
+        let filters = {};
+        filters.filterName = filterName;
+        filters.selectedFilterCountries = this.selectedFilterCountries;
+        filters.regDateFrom = regDateFrom;
+        filters.regDateTo = regDateTo;
+        filters.sortCriteria = sortCriteria;
+        filters.sortType = sortType;
+
+        scoreBoard.loadPlayers(filters);
+        this.displayAppliedFilters(filters);
         this.closeForm();
+    }
+
+    displayAppliedFilters(filters) {
+        let appliedFiltersText='';
+        
+        if(filters.filterName)
+            appliedFiltersText += `<span>Name:</span> ${filters.filterName} `;
+        if(filters.selectedFilterCountries.length > 0)
+            appliedFiltersText += `<span>Countries:</span> ${filters.selectedFilterCountries} `;
+        if(filters.regDateFrom)
+            appliedFiltersText += `<span>Date from:</span> ${filters.regDateFrom} `;
+        if(filters.regDateTo)
+            appliedFiltersText += `<span>Date to:</span> ${filters.regDateTo} `;
+        if(filters.sortCriteria)
+            appliedFiltersText += `<span>Sort by:</span> ${filters.sortCriteria} `;
+        if(filters.sortType)
+            appliedFiltersText += `<span>Sort:</span> ${filters.sortType} `;
+
+        this.appliedFilters.innerHTML = appliedFiltersText;
+
     }
 
     displayError(msg, target) {
@@ -57,19 +87,11 @@ class FilterForm {
         this.errorMsg.style.visibility = 'hidden'
     }
 
-    submitForm() {
-        let filterName = document.getElementById('filterName').value;
-        let regDateFrom = document.getElementById('regDateFrom').value;
-        let regDateTo = document.getElementById('regDateTo').value;
-        console.log(filterName)
-        console.log(filterName, this.selectedFilterCountries, regDateFrom, regDateTo);
-        
-    }
-
     resetForm(e) {
         e.preventDefault();
         this.form.reset();
         this.selectedFilterCountries = [];
+        this.appliedFilters.innerHTML='';
     }
 
     closeForm() {

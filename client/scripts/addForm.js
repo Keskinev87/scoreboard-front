@@ -30,14 +30,14 @@ class AddForm {
         //validation if all inputs are entered
         if(!playersName || playersName.length == 0)
             this.displayError("Please enter a name", this.nameFormGroup);
-        // else if(!playersCountry || playersCountry.length == 0)
-        //     this.displayError("Please select a country", this.countryFormGroup);
+        else if(!playersCountry || playersCountry.length == 0)
+            this.displayError("Please select a country", this.countryFormGroup);
         else if(!playersScore || playersScore.length == 0)
             this.displayError("Please enter a score", this.scoreFormGroup);
         else {
             //validation if the inputs are correct
             this.validateInput('name');
-            // this.validateInput('country');
+            this.validateInput('country');
             this.validateInput('score');   
             //check if there are any errors
             if(!this.nameError && !this.countryError && !this.scoreError) {
@@ -116,17 +116,20 @@ class AddForm {
                     this.removeError(this.nameFormGroup);
                     this.nameError = false;
                 }
-                break;
+                return this.nameError;
             case 'country':
                 let playersCountry = document.getElementById('playersCountry').value;
+                console.log("Validating country")
+                console.log(playersCountry)
                 if(!validator.validateCountry(playersCountry)) {
+                    console.log("Validating country")
                     this.displayError("Country names must be under 50 characters and may include only numbers and digits!", this.countryFormGroup)
                     this.countryError = true;
                 } else {
                     this.removeError(this.countryFormGroup);
                     this.countryError = false;
                 }
-                break;
+                return this.countryError;
             case 'score':
                 let playersScore = document.getElementById('playersScore').value;
                 if(!validator.validateScore(playersScore)) {
@@ -136,7 +139,7 @@ class AddForm {
                     this.removeError();
                     this.scoreError = false;
                 }
-                break;
+                return this.scoreError;
             default:
                 break;
         }
