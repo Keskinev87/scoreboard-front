@@ -22,7 +22,6 @@ class Validator {
     }
 
     validateCountry(country){
-        console.log("checking for country")
         let reg = new RegExp(this.countryRegex);
         if(country.length > this.countryMaxChar)
             return false;
@@ -33,7 +32,6 @@ class Validator {
     }
 
     validateDate(date) {
-        console.log("checking for date")
         let reg = new RegExp(this.dateRegex);
         if(!reg.test(date))
             return false;

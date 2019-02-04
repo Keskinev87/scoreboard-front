@@ -27,15 +27,12 @@ class FilterForm {
             }
         }
         if(regDateFrom) {
-            console.log("Checking date")
-            console.log(regDateFrom)
             if(!validator.validateDate(regDateFrom)) {
                 this.displayError("Please enter a valid date", this.dateFromFormGroup);
                 return;
             }
         }
         if(regDateTo) {
-            console.log("Checking date")
             if(!validator.validateDate(regDateTo)) {
                 this.displayError("Please enter a valid date", this.dateFromFormGroup);
                 return;
@@ -99,23 +96,18 @@ class FilterForm {
     }
 
     addFilterCountries(countryName) {
-        console.log("Added");
         this.selectedFilterCountries.push(countryName);
         this.filteredCountriesContainer.value = this.selectedFilterCountries;
-        console.log(this.selectedFilterCountries)
     }
     
     removeFilterCountries(countryName) {
-        console.log("Remove")
         let countryForRemoval = this.selectedFilterCountries.findIndex(x => x === countryName)
         this.selectedFilterCountries.splice(countryForRemoval, 1);
         this.filteredCountriesContainer.value = this.selectedFilterCountries;
-        console.log(this.selectedFilterCountries)
     }
     
 
     populateCountries() {
-        console.log(this)
         for(let country of countries) {
             let countryDropDown = document.getElementById('countries');
             let countryDiv = document.createElement('div');
@@ -135,7 +127,6 @@ class FilterForm {
             countryLabel.appendChild(countryName);
             countryDiv.appendChild(countryLabel);
             countryDropDown.appendChild(countryDiv);
-            console.log("countries added");
         }
     }
 }

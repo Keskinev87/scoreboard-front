@@ -69,18 +69,14 @@ class AddForm {
                 statusCode = response.status;
                 return response.json();
             }).then((responseValue) => {
-                console.log(responseValue)
                 return responseValue;
             })
             .catch(error => {
-                console.log(error.status)
-                console.log(error.code)
                 return error;
             });
         
         switch (statusCode) {
             case 200:
-                console.log("close form")
                 this.closeBtn.click();
                 break;
             case 400:
@@ -119,10 +115,8 @@ class AddForm {
                 return this.nameError;
             case 'country':
                 let playersCountry = document.getElementById('playersCountry').value;
-                console.log("Validating country")
-                console.log(playersCountry)
+
                 if(!validator.validateCountry(playersCountry)) {
-                    console.log("Validating country")
                     this.displayError("Country names must be under 50 characters and may include only numbers and digits!", this.countryFormGroup)
                     this.countryError = true;
                 } else {

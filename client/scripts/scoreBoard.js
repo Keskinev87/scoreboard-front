@@ -12,7 +12,6 @@ class ScoreBoard {
     }
 
     async loadPlayers (filters) {
-        console.log(filters)
         let url = new URL(BACKEND_URL + '/players');
         let params= {
             filterName: filters.filterName || '',
@@ -49,7 +48,6 @@ class ScoreBoard {
 
         if(data){
             this.players=data;
-            console.log(this.players.length)
             this.loader.style.display = 'none';
             this.errorMsg.style.display = 'none';
             this.paginator.innerHTML = '';
@@ -70,7 +68,6 @@ class ScoreBoard {
             this.paginator.appendChild(page);
         } 
         this.changePage(this.currentPage, this.currentPageId);
-        console.log(this.currentPage) ;
     }
 
     changePage(pageNumber, pageId) {
@@ -80,7 +77,6 @@ class ScoreBoard {
         page.parentElement.classList.add('active');
         this.currentPage = pageNumber;
         this.currentPageId = pageId;
-        console.log("splicing", this.currentPage, this.currentPage + 99);
         this.createTable(this.players.slice(this.currentPage * 100, this.currentPage * 100 + 99));
     }
     

@@ -11,8 +11,6 @@ function main(){
     filterForm = new FilterForm();
     addForm = new AddForm();
     validator = new Validator();
-    console.log(validator)
-    console.log(filterForm)
     scoreBoard.loadPlayers({});
     filterForm.populateCountries();
     addForm.populateCountries();
