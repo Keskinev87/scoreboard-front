@@ -87,31 +87,7 @@ class FilterForm {
         console.log(this.selectedFilterCountries)
     }
     
-    async fetchCountries(searchName, searchCountries, registrationFrom, registrationTo) {
-        let url = new URL(BACKEND_URL + '/countries/getAll')
-        
-        let queryOptions = {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            redirect: "follow"
-        }
-        
-        this.countries = await fetch(url, queryOptions)
-            .then((response) => {
-                return response.json();
-            }).then((data) => {
-                countries = data;
-                populateCountries();
-            }).catch(error => {
-                console.log(error)
-            });
-    
-    }
-    
+
     populateCountries() {
         console.log(this)
         for(let country of countries) {
@@ -124,7 +100,10 @@ class FilterForm {
             countryDiv.classList.add('checkbox');
     
             countryCheckbox.type = "checkbox";
+            countryCheckbox.setAttribute('id', country);
             countryCheckbox.value = country;
+
+            countryLabel.setAttribute('for', country);
         
             countryLabel.appendChild(countryCheckbox);
             countryLabel.appendChild(countryName);

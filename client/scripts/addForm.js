@@ -85,11 +85,13 @@ class AddForm {
                 break;
             case 400:
                 if(status == 'name')
-                    this.displayError("Invalid name", this.nameFormGroup);
+                    this.displayError("Names must be under 80 characters and include only numbers and digits!", this.nameFormGroup);
                 else if(status == 'country')
-                    this.displayError("Invalid country", this.countryFormGroup);
+                    this.displayError("Country names must be under 50 characters and may include only numbers and digits!", this.countryFormGroup);
                 else if(status == 'score')
-                    this.displayError("Invalid score", this.scoreFormGroup);
+                    this.displayError("The score must be a positive number less than 100!", this.scoreFormGroup);
+                else if(status == 'exists')
+                    this.displayError("There is a player with that name already. Please choose another one.", this.form)
                 else 
                     this.displayError("Invalid data. Please contact support", this.form)
                 break;
