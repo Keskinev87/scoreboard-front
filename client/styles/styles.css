@@ -1,6 +1,12 @@
 @media screen and (max-width: 600px) {
+	body {
+		box-sizing: border-box;
+	}
 	table{
-		font-size: 3vw;
+		box-sizing: border-box;
+	}
+	table{
+		font-size: 2.5vw;
 	}
 }
   

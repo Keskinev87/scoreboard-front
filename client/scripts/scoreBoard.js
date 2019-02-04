@@ -89,6 +89,7 @@ class ScoreBoard {
         this.scoreBoard.innerHTML='';
         arr.forEach((element, index) => {
             let tr = document.createElement('tr');
+
             let tdRank = document.createElement('td');
             tdRank.innerText = this.currentPage * 100 + index + 1;
             let tdName = document.createElement('td');
@@ -99,12 +100,15 @@ class ScoreBoard {
             tdDate.innerText = new Date(element.registrationDate).toLocaleDateString();
             let tdScore = document.createElement('td');
             tdScore.innerText = element.score;
+            let tdLevel = document.createElement('td');
+            tdLevel.innerText = element.level;
             
             tr.appendChild(tdRank);
             tr.appendChild(tdName);
             tr.appendChild(tdCountry);
             tr.appendChild(tdDate);
             tr.appendChild(tdScore);
+            tr.appendChild(tdLevel);
             this.scoreBoard.appendChild(tr);
         });
     }
