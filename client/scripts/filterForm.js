@@ -8,6 +8,7 @@ class FilterForm {
         this.dateToFormGroup = document.getElementById('filter-date-to-group');
         this.errorMsg = document.getElementById('filter-err-msg');
         this.closeBtn = document.getElementById('filter-close-btn');
+        this.filteredCountriesContainer = document.getElementById('selected-filter-countries');
     }
 
     validateForm(e) {
@@ -68,6 +69,7 @@ class FilterForm {
     resetForm(e) {
         e.preventDefault();
         this.form.reset();
+        this.selectedFilterCountries = [];
     }
 
     closeForm() {
@@ -76,7 +78,8 @@ class FilterForm {
 
     addFilterCountries(countryName) {
         console.log("Added");
-        this.selectedFilterCountries.push(countryName.toLowerCase());
+        this.selectedFilterCountries.push(countryName);
+        this.filteredCountriesContainer.value = this.selectedFilterCountries;
         console.log(this.selectedFilterCountries)
     }
     
@@ -84,6 +87,7 @@ class FilterForm {
         console.log("Remove")
         let countryForRemoval = this.selectedFilterCountries.findIndex(x => x === countryName)
         this.selectedFilterCountries.splice(countryForRemoval, 1);
+        this.filteredCountriesContainer.value = this.selectedFilterCountries;
         console.log(this.selectedFilterCountries)
     }
     

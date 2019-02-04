@@ -3,8 +3,8 @@ var filterForm;
 var addForm;
 var addNewForm;
 var validator;
-const BACKEND_URL = 'https://scoreboard-server-yavor.herokuapp.com'
-// const BACKEND_URL = 'http://localhost:3000'
+// const BACKEND_URL = 'https://scoreboard-server-yavor.herokuapp.com'
+const BACKEND_URL = 'http://localhost:3000'
 
 function main(){
     scoreBoard = new ScoreBoard();
