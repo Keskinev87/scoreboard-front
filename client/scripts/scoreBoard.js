@@ -72,9 +72,11 @@ class ScoreBoard {
 
     changePage(pageNumber, pageId) {
         let curPage = document.getElementById(this.currentPageId);
-        curPage.parentElement.classList.remove('active');
+        if(curPage)
+            curPage.parentElement.classList.remove('active');
         let page = document.getElementById(pageId);
-        page.parentElement.classList.add('active');
+        if(page)
+            page.parentElement.classList.add('active');
         this.currentPage = pageNumber;
         this.currentPageId = pageId;
         this.createTable(this.players.slice(this.currentPage * 100, this.currentPage * 100 + 99));
