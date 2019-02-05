@@ -10,6 +10,7 @@ class AddForm {
         this.nameError = false;
         this.countryError = false;
         this.scoreError = false;
+        this.successMsg = document.getElementById('player-added-msg');
     }
 
     populateCountries() {
@@ -77,7 +78,17 @@ class AddForm {
         
         switch (statusCode) {
             case 200:
+                //close the form
                 this.closeBtn.click();
+                //display success message
+                this.successMsg.innerHTML = "Player added successfully!"
+                this.successMsg.style.display = '';
+                //remove succes message
+                setTimeout(() => {
+                    this.successMsg.style.display = 'none';
+                }, 2500)
+                //fetch the players again(with filters if any);
+                filterForm.validateForm();
                 break;
             case 400:
                 if(status == 'name')

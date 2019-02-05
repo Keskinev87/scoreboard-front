@@ -13,7 +13,9 @@ class FilterForm {
     }
 
     validateForm(e) {
-        e.preventDefault();
+        if(e)
+            e.preventDefault();
+
         let filterName = document.getElementById('filterName').value;
         let regDateFrom = document.getElementById('regDateFrom').value;
         let regDateTo = document.getElementById('regDateTo').value;
@@ -51,7 +53,8 @@ class FilterForm {
 
         scoreBoard.loadPlayers(filters);
         this.displayAppliedFilters(filters);
-        this.closeForm();
+        if(e)
+            this.closeForm();
     }
 
     displayAppliedFilters(filters) {
